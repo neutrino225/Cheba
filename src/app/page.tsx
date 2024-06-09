@@ -1,113 +1,290 @@
+/** @format */
+"use client";
+
 import Image from "next/image";
+import Navbar from "./components/Navbar";
+import Card from "./components/Card";
+import Socials from "./components/socials";
+import { useNetwork } from "./context/NetworkContext";
+import { useWallet } from "./context/WalletContext";
+import CurrencyCard from "./components/CurrencyCard";
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+const data = [
+	{
+		image: "/ethereum42x42.png",
+		title: "Ethereum",
+		subtitle: "12,232.23 $",
+	},
+	{
+		image: "/solana42x42.png",
+		title: "Solana",
+		subtitle: "12,232.23 $",
+	},
+	{
+		image: "/binance42x42.png",
+		title: "Binance",
+		subtitle: "12,232.23 $",
+	},
+];
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+const Home = () => {
+	const { network } = useNetwork();
+	const { wallet } = useWallet();
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+	return (
+		<>
+			<header>
+				<Navbar />
+			</header>
+			<main className="w-screen min-h-screen overflow-x-hidden flex flex-col md:overflow-hidden">
+				<div className="absolute w-3/4 md:w-1/4 h-1/6 top-6 left-[-15px] z-10">
+					<Image
+						src="/particles.svg"
+						alt="particles"
+						layout="fill"
+						objectFit="cover"
+					/>
+				</div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+				{/* SPOTLIGHT */}
+				{network == "" && (
+					<Image
+						src="/spotlight.svg"
+						alt="left-spotlight"
+						layout="fill"
+						objectFit="cover"
+						className="absolute top-0 left-0 -z-10"
+					/>
+				)}
+				{network == "Solana" && (
+					<Image
+						src="/solana/spotlight.svg"
+						alt="left-spotlight"
+						layout="fill"
+						objectFit="cover"
+						className="absolute top-0 left-0 -z-10"
+					/>
+				)}
+				{network == "Binance" && (
+					<Image
+						src="/binance/spotlight.svg"
+						alt="left-spotlight"
+						layout="fill"
+						objectFit="cover"
+						className="absolute top-0 left-0 -z-10"
+					/>
+				)}
+				{network == "Ethereum" && (
+					<Image
+						src="/ethereum/spotlight.svg"
+						alt="left-spotlight"
+						layout="fill"
+						objectFit="cover"
+						className="absolute top-0 left-0 -z-10"
+					/>
+				)}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+				{/* TOP LEFT ILLUMINATION */}
+				{network == "" && (
+					<Image
+						src="/eclipse00.svg"
+						alt="top-left-illumination"
+						width={394}
+						height={394}
+						className="absolute top-0 left-0 -z-10"
+					/>
+				)}
+				{network == "Solana" && (
+					<Image
+						src="/solana/eclipse00.svg"
+						alt="top-left-illumination"
+						width={394}
+						height={394}
+						className="absolute top-0 left-0 -z-10"
+					/>
+				)}
+				{network == "Binance" && (
+					<Image
+						src="/binance/eclipse00.svg"
+						alt="top-left-illumination"
+						width={394}
+						height={394}
+						className="absolute top-0 left-0 -z-10"
+					/>
+				)}
+				{network == "Ethereum" && (
+					<Image
+						src="/ethereum/eclipse00.svg"
+						alt="top-left-illumination"
+						width={394}
+						height={394}
+						className="absolute top-0 left-0 -z-10"
+					/>
+				)}
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
-}
+				{/* BOTTOM RIGHT ILLUMINATION */}
+				{network == "" && (
+					<Image
+						src="/eclipse11.svg"
+						alt="Bottom-right-illumination"
+						width={394}
+						height={394}
+						className="fixed bottom-0 right-0 -z-10"
+					/>
+				)}
+				{network == "Solana" && (
+					<Image
+						src="/solana/eclipse11.svg"
+						alt="Bottom-right-illumination"
+						width={394}
+						height={394}
+						className="fixed bottom-0 right-0 -z-10"
+					/>
+				)}
+				{network == "Binance" && (
+					<Image
+						src="/binance/eclipse11.svg"
+						alt="Bottom-right-illumination"
+						width={394}
+						height={394}
+						className="fixed bottom-0 right-0 -z-10"
+					/>
+				)}
+				{network == "Ethereum" && (
+					<Image
+						src="/ethereum/eclipse11.svg"
+						alt="Bottom-right-illumination"
+						width={394}
+						height={394}
+						className="fixed bottom-0 right-0 -z-10"
+					/>
+				)}
+
+				<section className="w-full flex-1 flex flex-col justify-center gap-5 px-4 md:px-20 mt-10 md:mt-0">
+					<div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-20 w-full">
+						<div className="hidden md:flex">
+							<Socials />
+						</div>
+						<div className="w-full md:w-auto flex flex-col justify-start items-start">
+							{network === "" && (
+								<>
+									<Image
+										src="/helloimchebu.png"
+										width={328}
+										height={158}
+										alt="Hello I am chebu"
+										sizes="(max-width: 768px) 200px, 328px"
+									/>
+									<Image
+										src="/chebu-main.png"
+										width={600}
+										height={500}
+										alt="Chebu"
+									/>
+								</>
+							)}
+							{network === "Solana" && (
+								<>
+									<Image
+										src="/solana/helloimchebu.png"
+										width={328}
+										height={158}
+										alt="Hello I am chebu"
+										sizes="(max-width: 768px) 200px, 328px"
+									/>
+									<Image
+										src="/solana/chebu-main.png"
+										width={600}
+										height={500}
+										alt="Chebu"
+									/>
+								</>
+							)}
+							{network === "Binance" && (
+								<>
+									<Image
+										src="/binance/helloimchebu.png"
+										width={328}
+										height={158}
+										alt="Hello I am chebu"
+										sizes="(max-width: 768px) 200px, 328px"
+									/>
+									<Image
+										src="/binance/chebu-main.png"
+										width={600}
+										height={500}
+										alt="Chebu"
+									/>
+								</>
+							)}
+							{network === "Ethereum" && (
+								<>
+									<Image
+										src="/ethereum/helloimchebu.png"
+										width={328}
+										height={158}
+										alt="Hello I am chebu"
+										sizes="(max-width: 768px) 200px, 328px"
+									/>
+									<Image
+										src="/ethereum/chebu-main.png"
+										width={600}
+										height={500}
+										alt="Chebu"
+									/>
+								</>
+							)}
+						</div>
+
+						{network == "" && (
+							<div className="w-full md:w-96 hidden md:flex flex-col self-start justify-start items-start gap-3 mt-10 md:mt-20">
+								<h1 className="text-[32px] font-medium text-white leading-[43.71px]">
+									Choose your Chebu
+								</h1>
+								<div className="w-full grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">
+									{data.map((item, index) => (
+										<Card
+											key={index}
+											image={item.image}
+											title={item.title}
+											subtitle={item.subtitle}
+										/>
+									))}
+								</div>
+							</div>
+						)}
+						{network != "" && <CurrencyCard />}
+					</div>
+
+					<div className="w-full relative">
+						<div className="w-full md:w-[1296px] h-auto md:h-[102px] bg-transparent md:bg-[url(/Rectangle.png)] flex flex-col md:flex-row justify-around items-center mx-auto gap-4 md:gap-0">
+							<div className="flex flex-col justify-center items-center bg-[#0000004D] md:bg-transparent rounded-2xl md:rounded-none w-full md:w-auto p-4 md:p-0">
+								<p className="text-white text-[24px] font-medium">2d:4h:2s</p>
+								<p className="text-[#989898] text-[13px] font-normal">
+									Live time
+								</p>
+							</div>
+							<div className="bg-[#0000004D] md:bg-transparent rounded-2xl md:rounded-none w-full md:w-1/6 flex flex-col justify-center items-center border-none md:border-x-4 md:border-[#6B6B72] p-4 md:p-0">
+								<p className="text-white text-[24px] font-medium">
+									7 / 1.000.000
+								</p>
+								<p className="text-[#989898] text-[13px] font-normal">Level</p>
+							</div>
+							<div className="flex flex-col justify-center items-center bg-[#0000004D] md:bg-transparent rounded-2xl md:rounded-none w-full md:w-auto p-4 md:p-0">
+								<p className="text-white text-[24px] font-medium">37</p>
+								<p className="text-[#989898] text-[13px] font-normal">
+									Max Level
+								</p>
+							</div>
+						</div>
+					</div>
+					<div className="flex justify-center items-center md:hidden">
+						<Socials />
+					</div>
+				</section>
+			</main>
+		</>
+	);
+};
+
+export default Home;

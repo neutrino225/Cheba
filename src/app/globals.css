@@ -1,33 +1,43 @@
+/** @format */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+	--background-color: #0a0a0b;
+	--text-color: #fff;
+	--text-font: "Manrope", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+	:root {
+		--background-color: #0a0a0b;
+		--text-color: #fff;
+		--text-font: "Manrope", sans-serif;
+	}
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	color: rgb(var(--text-color));
+	background: var(--background-color);
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+	.text-balance {
+		text-wrap: balance;
+	}
+}
+
+.card-border {
+	border: 1px solid;
+	border-image-source: linear-gradient(
+		212.64deg,
+		#19fb9b 19.57%,
+		#8c01fa 139.72%
+	);
 }
