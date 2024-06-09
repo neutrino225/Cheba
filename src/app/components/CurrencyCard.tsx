@@ -2,7 +2,9 @@
 
 import React from "react";
 import { useNetwork } from "../context/NetworkContext";
-
+import Image from "next/image";
+import { useState } from "react";
+import { get } from "http";
 
 const loss = [
 	{
@@ -55,6 +57,7 @@ const balance = {
 
 const CurrencyCard: React.FC = () => {
 	const { network } = useNetwork();
+	const [getAmount, setGetAmount] = useState(true);
 
 	if (network === "Solana") {
 		return (
@@ -80,6 +83,22 @@ const CurrencyCard: React.FC = () => {
 };
 
 const CurrencyCardContent: React.FC = () => {
+	const { network } = useNetwork();
+	const [getAmount, setGetAmount] = useState(false);
+	const [amount, setAmount] = useState(0);
+
+	const increaseAmount = () => {
+		setAmount(amount + 1);
+	};
+
+	const decreaseAmount = () => {
+		setAmount(amount - 1);
+	};
+
+	const onButtonClick = () => {
+		setGetAmount(!getAmount);
+	};
+
 	return (
 		<div className="w-100 h-100 flex flex-col gap-5">
 			<div className="w-100 h-100 flex flex-row justify-around items-center">
@@ -136,6 +155,43 @@ const CurrencyCardContent: React.FC = () => {
 					</p>
 				</div>
 			))}
+
+			{getAmount && (
+				<div className="w-100 h-100 p-2 flex flex-col gap-2 justify-start items-start">
+					<p className="text-sm text-[#CCCCCC] font-normal leading-4 px-2">
+						Amount
+					</p>
+					<div className="relative w-full max-w-xs mx-auto">
+						<button
+							className="absolute left-0 top-0 h-full px-4 text-white rounded-l-full"
+							type="button"
+							onClick={decreaseAmount}>
+							-
+						</button>
+						<input
+							className="rounded-full bg-black/50 text-center text-white py-2 pl-12 pr-12 w-full"
+							type="number"
+							name="amount"
+							id="amount"
+							value={amount} // Set the value of the input to the state value
+							onChange={(e) => setAmount(parseInt(e.target.value))} // Update the state when the input changes
+							style={{
+								// Hide the increase button
+								WebkitAppearance: "none",
+								MozAppearance: "textfield",
+								margin: 0,
+							}}
+						/>
+						<button
+							className="absolute right-0 top-0 h-full px-4 text-white rounded-r-full"
+							type="button"
+							onClick={increaseAmount}>
+							+
+						</button>
+					</div>
+				</div>
+			)}
+
 			<div className="w-100 h-100 p-2 flex flex-col gap-2">
 				<p className="text-sm text-[#CCCCCC] font-normal leading-4 px-2">
 					Your balance
@@ -147,6 +203,46 @@ const CurrencyCardContent: React.FC = () => {
 					<p className="text-base text-white font-normal leading-4">
 						{balance.usd} <span className="text-[#797489] ml-1">USD</span>
 					</p>
+				</div>
+				<div className="relative w-full rounded-full bg-black p-1">
+					<div className="relative flex flex-row">
+						<button
+							onClick={onButtonClick}
+							className="w-1/2 rounded-full bg-green-400 p-4 text-white text-base font-bold leading-5">
+							Buy
+						</button>
+						<button
+							onClick={onButtonClick}
+							className="w-1/2 rounded-full bg-red-500 p-4 text-white text-base font-bold leading-5">
+							Sell
+						</button>
+					</div>
+					<div className="absolute top-0 left-[35%] p-3 bg-black rounded-full">
+						{network === "Solana" && (
+							<Image
+								src="/solana/currency.png"
+								alt="Currency"
+								width={80}
+								height={24}
+							/>
+						)}
+						{network === "Binance" && (
+							<Image
+								src="/binance/currency.png"
+								alt="Currency"
+								width={80}
+								height={24}
+							/>
+						)}
+						{network === "Ethereum" && (
+							<Image
+								src="/ethereum/currency.png"
+								alt="Currency"
+								width={80}
+								height={24}
+							/>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>
