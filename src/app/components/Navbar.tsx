@@ -167,7 +167,7 @@ const Navbar = () => {
 					</div>
 				</div>
 				<div className="md:hidden flex items-center">
-					<button onClick={toggleMenu} className="focus:outline-none z-20">
+					<button onClick={toggleMenu} className="focus:outline-none z-50">
 						{isOpen ? (
 							<svg
 								className="w-6 h-6 text-white"
@@ -221,9 +221,9 @@ const Navbar = () => {
 				</div>
 			</div>
 			{isOpen && (
-				<div className="md:hidden absolute top-16 left-0 w-full bg-[#212121] p-4 rounded-b-lg shadow-lg z-20">
+				<div className="md:hidden absolute top-0 left-0 w-full h-full bg-[#212121] p-4 rounded-b-lg shadow-lg z-40 flex flex-col justify-start items-center">
 					<button
-						className="block w-full text-white leading-[20.64px] font-medium text-[15px] mb-4"
+						className="block text-white leading-[20.64px] font-medium text-[15px] mb-4 mt-16 bg-[#050505] py-3 px-4 rounded-full focus:outline-none"
 						onClick={() => {
 							router.push("/about");
 							toggleMenu();
@@ -235,12 +235,13 @@ const Navbar = () => {
 							className="w-full grid grid-cols-1 gap-x-10 gap-y-5"
 							onClick={toggleMenu}>
 							{data.map((item, index) => (
-								<Card
-									key={index}
+								<div key={item.title} className="border border-black rounded-full">
+							<Card
 									image={item.image}
 									title={item.title}
 									subtitle={item.subtitle}
 								/>
+								</div>
 							))}
 						</div>
 					</div>

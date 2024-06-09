@@ -6,9 +6,12 @@ import Navbar from "../components/Navbar";
 import { useNetwork } from "../context/NetworkContext";
 import Socials from "../components/socials";
 import { useRouter } from "next/navigation";
+import { useWallet } from "../context/WalletContext";
 
 const ConnectWallet: React.FC = () => {
 	const { network } = useNetwork();
+	const { setConnected } = useWallet();
+
 	const router = useRouter();
 	return (
 		<main className="w-screen h-screen relative lg:overflow-hidden overflow-x-hidden">
@@ -103,11 +106,23 @@ const ConnectWallet: React.FC = () => {
 								height={200}
 								sizes="100vw"
 							/>
-							<p className="text-white text-2xl font-normal leading-7">Connect via Metamask</p>
+							<p className="text-white text-2xl font-normal leading-7">
+								Connect via Metamask
+							</p>
 						</div>
 						<div className="flex flex-row justify-center items-center gap-4">
-							<button onClick={() => router.back()} className="text-white text-lg border border-[#303742] p-4 rounded-full w-[100px] md:w-[150px] max-md:text-sm">Go back</button>
-							<button className="text-white text-lg border border-[#303742] p-4 rounded-full w-[100px] md:w-[150px] bg-[#191E25] max-md:text-sm">Connect</button>
+							<button
+								onClick={() => router.back()}
+								className="text-white text-lg border border-[#303742] p-4 rounded-full w-[100px] md:w-[150px] max-md:text-sm">
+								Go back
+							</button>
+							<button
+								onClick={() => {
+									setConnected(true);
+									router.push("/");}}
+								className="text-white text-lg border border-[#303742] p-4 rounded-full w-[100px] md:w-[150px] bg-[#191E25] max-md:text-sm">
+								Connect
+							</button>
 						</div>
 					</div>
 				</div>

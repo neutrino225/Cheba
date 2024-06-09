@@ -6,9 +6,18 @@ import Navbar from "../components/Navbar";
 import { useNetwork } from "../context/NetworkContext";
 import Socials from "../components/socials";
 import { useRouter } from "next/navigation";
+import { useWallet } from "../context/WalletContext";
 
 const ConnectWallet: React.FC = () => {
 	const { network } = useNetwork();
+	const { setWallet, setConnected } = useWallet();
+
+	const handleLogout = () => {
+		setConnected(false);
+		setWallet("");
+		router.push("/");
+	};
+
 	const router = useRouter();
 	return (
 		<main className="w-screen h-screen relative lg:overflow-hidden overflow-x-hidden">
@@ -89,31 +98,36 @@ const ConnectWallet: React.FC = () => {
 				/>
 			)}
 
-			<section className="w-screen min-h-screen flex flex-col justify-around items-center gap-[180px] py-2 md:py-10 px-8 md:px-20 max-md:mt-10">
+			<section className="w-screen min-h-screen flex flex-col justify-around items-center gap-5 md:gap-[180px] py-2 md:py-10 px-8 md:px-20 max-md:mt-10">
 				<div className="w-full flex flex-row items-center justify-center relative">
 					<div className="absolute left-0 max-md:hidden">
 						<Socials />
 					</div>
-					<div className="w-1/3 flex flex-col justify-center items-center bg-black/30 p-4 gap-28 rounded-3xl">
-						<div>
+					<div className=" w-full md:w-1/3 flex flex-col justify-center items-center bg-black/30 p-4 gap-28 rounded-3xl">
+						<div className="flex flex-col justify-center items-center">
 							<Image
-								src="/metamask/icon_metamask.png"
+								src="/metamask/logout.png"
 								alt="MetaMask"
 								width={200}
 								height={200}
+								sizes="100vw"
 							/>
-							<p className="text-white text-2xl font-normal leading-7">
-								Connect via Metamask
+							<p className="text-white text-2xl font-normal leading-7 text-center p-0 md:px-10">
+								Are you sure you want to log out of your profile?
 							</p>
 						</div>
-						<div className="flex flex-row justify-center items-center gap-4">
+						<div className="flex flex-row justify-center items-center gap-6">
 							<button
-								onClick={() => router.back()}
-								className="text-white text-lg border border-[#303742] p-4 rounded-full w-[150px]">
-								Go back
+								onClick={handleLogout}
+								className="text-white text-lg border border-[#303742] p-2 rounded-full w-[100px] md:w-[150px]  max-h-min max-md:text-sm">
+								Yes, Log out
 							</button>
-							<button className="text-white text-lg border border-[#303742] p-4 rounded-full w-[150px] bg-[#191E25]">
-								Connect
+							<button
+								onClick={() => {
+									router.push("/");
+								}}
+								className="text-white text-lg border border-[#303742] p-2 rounded-full w-[100px] md:w-[150px] bg-[#191E25] max-md:text-sm">
+								Close
 							</button>
 						</div>
 					</div>

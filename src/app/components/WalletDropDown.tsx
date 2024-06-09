@@ -23,8 +23,12 @@ const WalletDropdown: React.FC<WalletDropDownProps> = ({
 	text,
 	img,
 }) => {
-	const { wallet } = useWallet();
+	const {connected } = useWallet();
 	const router = useRouter();
+
+	const handleLogout = () => {
+		router.push("/confirmLogout");
+	};
 
 	const handleOptionClick = (option: DropdownOption) => {
 		router.push("/connectWallet");
@@ -36,14 +40,14 @@ const WalletDropdown: React.FC<WalletDropDownProps> = ({
 				<div className="relative flex flex-row justify-start items-center w-[200px] pr-4">
 					<Image
 						className="ml-2"
-						src={img}
+						src={connected ? "/metamask.png" : img}
 						alt="Dropdown img"
 						width={32}
 						height={32}
 						sizes="(max-width: 768px) 20px, 32px"
 					/>
 					<button className="bg-transparent w-[70px] md:w-[200px] h-[48px] rounded-full flex flex-row justify-center items-center text-white font-[600] text-[14px] gap-1">
-						{text}
+						{connected ? "Connected" : text}
 					</button>
 				</div>
 			</DropdownMenu.Trigger>
@@ -67,6 +71,21 @@ const WalletDropdown: React.FC<WalletDropDownProps> = ({
 						<span className="flex-grow text-center">{option.text}</span>
 					</DropdownMenu.Item>
 				))}
+				{connected && (
+					<DropdownMenu.Item
+						onSelect={handleLogout}
+						className="w-full h-[48px] flex flex-row hover:bg-sky-700 justify-start items-center text-white font-[600] text-[15px] gap-2 cursor-pointer bg-transparent border-0 text-left px-5">
+						<div className="bg-[#111111] p-2 rounded-full flex justify-center items-center">
+							<Image
+								src="/logout.png"
+								alt="Logout"
+								width={18}
+								height={18}
+							/>
+						</div>
+						<span className="flex-grow text-center">Logout</span>
+					</DropdownMenu.Item>
+				)}
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 	);

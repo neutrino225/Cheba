@@ -6,8 +6,8 @@ import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import Socials from "./components/socials";
 import { useNetwork } from "./context/NetworkContext";
-import { useWallet } from "./context/WalletContext";
 import CurrencyCard from "./components/CurrencyCard";
+import { useRef } from "react";
 
 const data = [
 	{
@@ -29,7 +29,13 @@ const data = [
 
 const Home = () => {
 	const { network } = useNetwork();
-	const { wallet } = useWallet();
+	const priceRef = useRef<HTMLDivElement>(null);
+
+	const handleViewPriceClick = () => {
+		if (priceRef.current) {
+			priceRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	};
 
 	return (
 		<>
@@ -233,6 +239,21 @@ const Home = () => {
 										alt="Chebu"
 									/>
 								</>
+							)}
+							{network != "" && (
+								<div className="md:hidden w-100 flex flex-row gap-4 justify-center items-center w-full z-20 cursor-pointer">
+									<button
+										onClick={handleViewPriceClick}
+										className="flex flex-row gap-4 justify-center items-center w-full z-20 cursor-pointer">
+										<p className="w-100 text-white text-base">View price</p>
+										<Image
+											src="/downarrow.svg"
+											alt="down-arrow"
+											width={24}
+											height={24}
+										/>
+									</button>
+								</div>
 							)}
 						</div>
 

@@ -3,6 +3,7 @@
 import React from "react";
 import { useNetwork } from "../context/NetworkContext";
 
+
 const loss = [
 	{
 		price: 0.00001,

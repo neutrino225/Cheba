@@ -20,4 +20,6 @@ export type Wallet =
 export type WalletContextType = {
 	wallet: string;
 	setWallet: React.Dispatch<React.SetStateAction<string>>;
+	connected: boolean;
+	setConnected: React.Dispatch<React.SetStateAction<boolean>>;
 };
