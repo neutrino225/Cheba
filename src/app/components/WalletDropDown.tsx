@@ -1,33 +1,33 @@
 /** @format */
 
+import React from "react";
+import { useWallet } from "../context/WalletContext";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Image from "next/image";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 interface DropdownOption {
 	img: string;
 	text: string;
 }
 
-interface DropdownProps {
+interface WalletDropDownProps {
 	options: DropdownOption[];
 	text: string;
 	img: string;
-	setValue?: (value: string) => void;
-	onClick?: () => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, text, img, setValue }) => {
-	const [selectedOption, setSelectedOption] = useState<{
-		text: string;
-		img: string;
-	}>({ text, img });
+const WalletDropdown: React.FC<WalletDropDownProps> = ({
+	options,
+	text,
+	img,
+}) => {
+	const { wallet } = useWallet();
+	const router = useRouter();
 
 	const handleOptionClick = (option: DropdownOption) => {
-		setSelectedOption(option);
-		if (setValue) {
-			setValue(option.text);
-		}
+		router.push("/connectWallet");
 	};
 
 	return (
@@ -36,14 +36,14 @@ const Dropdown: React.FC<DropdownProps> = ({ options, text, img, setValue }) => 
 				<div className="relative flex flex-row justify-start items-center w-[200px] pr-4">
 					<Image
 						className="ml-2"
-						src={selectedOption.img}
+						src={img}
 						alt="Dropdown img"
 						width={32}
 						height={32}
 						sizes="(max-width: 768px) 20px, 32px"
 					/>
 					<button className="bg-transparent w-[70px] md:w-[200px] h-[48px] rounded-full flex flex-row justify-center items-center text-white font-[600] text-[14px] gap-1">
-						{selectedOption.text}
+						{text}
 					</button>
 				</div>
 			</DropdownMenu.Trigger>
@@ -72,4 +72,4 @@ const Dropdown: React.FC<DropdownProps> = ({ options, text, img, setValue }) => 
 	);
 };
 
-export default Dropdown;
+export default WalletDropdown;

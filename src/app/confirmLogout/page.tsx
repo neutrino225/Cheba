@@ -5,9 +5,11 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import { useNetwork } from "../context/NetworkContext";
 import Socials from "../components/socials";
+import { useRouter } from "next/navigation";
 
-const AboutPage: React.FC = () => {
+const ConnectWallet: React.FC = () => {
 	const { network } = useNetwork();
+	const router = useRouter();
 	return (
 		<main className="w-screen h-screen relative lg:overflow-hidden overflow-x-hidden">
 			<Navbar />
@@ -87,45 +89,32 @@ const AboutPage: React.FC = () => {
 				/>
 			)}
 
-			<section className="w-screen min-h-screen flex flex-col justify-around items-center gap-20 py-2 md:py-10 px-8 md:px-20 max-md:mt-10">
+			<section className="w-screen min-h-screen flex flex-col justify-around items-center gap-[180px] py-2 md:py-10 px-8 md:px-20 max-md:mt-10">
 				<div className="w-full flex flex-row items-center justify-center relative">
 					<div className="absolute left-0 max-md:hidden">
 						<Socials />
 					</div>
-					<div className="max-w-min flex flex-col justify-center items-center">
-						<div className="flex flex-col justify-center items-center gap-20">
-							<h1 className="text-white text-[32px] font-medium">
-								How it works
-							</h1>
-							<div className="flex flex-col md:flex-row justify-center items-center gap-10">
-								<div className="w-[300px] h-[156px] bg-[#2D2D2D4D] rounded-2xl flex flex-col justify-center items-center p-10 gap-2">
-									<p className="text-white text-sm leading-7">I</p>
-									<p className="text-white leading-7 text-2xl">Buy</p>
-								</div>
-								<div className="w-[300px] h-[156px] bg-[#2D2D2D4D] rounded-2xl flex flex-col justify-center items-center p-10 gap-2">
-									<p className="text-white text-sm leading-7">II</p>
-									<p className="text-white leading-7 text-2xl">Shill / Hold</p>
-								</div>
-								<div className="w-[300px] h-[156px] bg-[#2D2D2D4D] rounded-2xl flex flex-col justify-center items-center p-10 gap-2">
-									<p className="text-white text-sm leading-7">III</p>
-									<p className="text-white leading-7 text-2xl">Take profit</p>
-								</div>
-							</div>
-							<div className="flex flex-col gap-10">
-								<p className="text-white text-[14px] font-normal text-justify md:text-center leading-7">
-									Introducing Chebu, an automatic liquidity distribution system
-									capped at a cool 1 trillion tokens, with a pre-programmed
-									selling price at each of its 1 million levels. Token security?
-									Locked in with a nonrugpull mechanism, meaning only token
-									buyers can withdraw liquidity. Every token bought boosts the
-									TVL. Developers skipped the pre-mint dance.
-								</p>
-								<p className="text-white text-[14px] font-normal text-justify md:text-center leading-7">
-									The developer takes a 5% cut from each transaction and
-									reinvests it into more token shilling. The game plan&apos;s
-									simple: Buy, Shill, Take Profit. Good luck out there!
-								</p>
-							</div>
+					<div className="w-1/3 flex flex-col justify-center items-center bg-black/30 p-4 gap-28 rounded-3xl">
+						<div>
+							<Image
+								src="/metamask/icon_metamask.png"
+								alt="MetaMask"
+								width={200}
+								height={200}
+							/>
+							<p className="text-white text-2xl font-normal leading-7">
+								Connect via Metamask
+							</p>
+						</div>
+						<div className="flex flex-row justify-center items-center gap-4">
+							<button
+								onClick={() => router.back()}
+								className="text-white text-lg border border-[#303742] p-4 rounded-full w-[150px]">
+								Go back
+							</button>
+							<button className="text-white text-lg border border-[#303742] p-4 rounded-full w-[150px] bg-[#191E25]">
+								Connect
+							</button>
 						</div>
 					</div>
 				</div>
@@ -159,4 +148,4 @@ const AboutPage: React.FC = () => {
 	);
 };
 
-export default AboutPage;
+export default ConnectWallet;

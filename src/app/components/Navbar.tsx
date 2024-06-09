@@ -2,12 +2,13 @@
 "use client";
 
 import Image from "next/image";
-import Dropdown from "./Dropdown";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Card from "./Card";
 import { useNetwork } from "../context/NetworkContext";
 import { useWallet } from "../context/WalletContext";
+import NetworkDropdown from "./NetworkDropDown";
+import WalletDropdown from "./WalletDropDown";
 
 const options1 = [
 	{
@@ -55,27 +56,29 @@ const data = [
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [dropdowntext, setDropdownText] = useState("Select net");
 	const router = useRouter();
 
 	const { network, setNetwork } = useNetwork();
 	const { wallet, setWallet } = useWallet();
 
 	const toggleMenu = () => {
-		console.log("clicked");
 		setIsOpen(!isOpen);
 	};
+
+	useEffect(() => {
+		setDropdownText(network);
+	}, [network]);
 
 	return (
 		<nav className="flex flex-col justify-center items-center">
 			<div className="w-full flex flex-row-reverse md:flex-row justify-between items-center px-4 py-4 md:px-20 md:py-4">
 				<div>
 					<div className="relative bg-[#3C3C3C] w-[108px] h-[48px] rounded-full md:hidden z-30">
-						<Dropdown
+						<WalletDropdown
 							options={options2}
 							text="Wallet"
 							img="/dropdown2.png"
-							showSvg={false}
-							setValue={setWallet}
 						/>
 					</div>
 				</div>
@@ -106,7 +109,8 @@ const Navbar = () => {
 							width={54.22}
 							height={44.62}
 						/>
-					)}{network == "Ethereum" && (
+					)}
+					{network == "Ethereum" && (
 						<Image
 							className="hidden md:block"
 							src="/ethereum/logo.png"
@@ -148,21 +152,17 @@ const Navbar = () => {
 						</div>
 					</div>
 					<div className="relative bg-[#212121] w-[200px] h-[48px] rounded-full flex flex-row justify-center items-center">
-						<Dropdown
+						<NetworkDropdown
 							options={options1}
 							text="Select net"
 							img="/dropdown.png"
-							showSvg={true}
-							setValue={setNetwork}
 						/>
 					</div>
 					<div className="relative bg-[#3C3C3C] w-[200px] h-[48px] rounded-full">
-						<Dropdown
+						<WalletDropdown
 							options={options2}
-							text="Choose wallet"
+							text="Choose Wallet"
 							img="/dropdown2.png"
-							showSvg={false}
-							setValue={setWallet}
 						/>
 					</div>
 				</div>
@@ -231,7 +231,9 @@ const Navbar = () => {
 						How it works
 					</button>
 					<div className="w-full flex flex-col self-start justify-start items-start gap-3 mt-10">
-						<div className="w-full grid grid-cols-1 gap-x-10 gap-y-5" onClick={toggleMenu}>
+						<div
+							className="w-full grid grid-cols-1 gap-x-10 gap-y-5"
+							onClick={toggleMenu}>
 							{data.map((item, index) => (
 								<Card
 									key={index}

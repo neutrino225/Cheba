@@ -1,33 +1,43 @@
 /** @format */
 
+import React, { useEffect, useState } from "react";
+import { useNetwork } from "../context/NetworkContext";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Image from "next/image";
-import React, { useState } from "react";
 
 interface DropdownOption {
 	img: string;
 	text: string;
 }
 
-interface DropdownProps {
+interface NetWorkDropDown {
 	options: DropdownOption[];
 	text: string;
 	img: string;
-	setValue?: (value: string) => void;
-	onClick?: () => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, text, img, setValue }) => {
-	const [selectedOption, setSelectedOption] = useState<{
-		text: string;
-		img: string;
-	}>({ text, img });
+const NetworkDropdown: React.FC<NetWorkDropDown> = ({ options, text, img }) => {
+	const [selectedOptionImage, setSelectedOptionImage] = useState<string>(img);
+	const [selectedOptionText, setSelectedOptionText] = useState<string>(text);
+	const { network, setNetwork } = useNetwork();
+
+	useEffect(() => {
+		if (network !== "") {
+			const selectedOption = options.find((option) => option.text === network);
+			if (selectedOption) {
+				setSelectedOptionText(selectedOption.text);
+				setSelectedOptionImage(selectedOption.img);
+			}
+		} else {
+			setSelectedOptionText(text);
+			setSelectedOptionImage(img);
+		}
+	}, [network, options, text, img]);
 
 	const handleOptionClick = (option: DropdownOption) => {
-		setSelectedOption(option);
-		if (setValue) {
-			setValue(option.text);
-		}
+		setNetwork(option.text);
+		setSelectedOptionText(option.text);
+		setSelectedOptionImage(option.img);
 	};
 
 	return (
@@ -36,14 +46,14 @@ const Dropdown: React.FC<DropdownProps> = ({ options, text, img, setValue }) => 
 				<div className="relative flex flex-row justify-start items-center w-[200px] pr-4">
 					<Image
 						className="ml-2"
-						src={selectedOption.img}
+						src={selectedOptionImage}
 						alt="Dropdown img"
 						width={32}
 						height={32}
 						sizes="(max-width: 768px) 20px, 32px"
 					/>
 					<button className="bg-transparent w-[70px] md:w-[200px] h-[48px] rounded-full flex flex-row justify-center items-center text-white font-[600] text-[14px] gap-1">
-						{selectedOption.text}
+						{selectedOptionText}
 					</button>
 				</div>
 			</DropdownMenu.Trigger>
@@ -72,4 +82,4 @@ const Dropdown: React.FC<DropdownProps> = ({ options, text, img, setValue }) => 
 	);
 };
 
-export default Dropdown;
+export default NetworkDropdown;
