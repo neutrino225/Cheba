@@ -42,7 +42,7 @@ const Home = () => {
 			<header>
 				<Navbar />
 			</header>
-			<main className="w-screen min-h-screen overflow-x-hidden flex flex-col md:overflow-hidden">
+			<main className="w-screen h-full overflow-x-hidden flex flex-col md:overflow-hidden">
 				<div className="absolute w-3/4 md:w-1/4 h-1/6 top-6 left-[-15px] z-10">
 					<Image
 						src="/particles.svg"
@@ -166,7 +166,7 @@ const Home = () => {
 					/>
 				)}
 
-				<section className="w-full flex-1 flex flex-col justify-center gap-5 p-4 md:p-0 md:px-20 mt-10 md:mt-0">
+				<section className="w-full flex flex-col justify-center gap-28 p-4 md:p-0 md:px-20 mt-10 md:mt-0">
 					<div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-20 w-full">
 						<div className="hidden md:flex">
 							<Socials />
