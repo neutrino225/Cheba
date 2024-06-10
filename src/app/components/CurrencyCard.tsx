@@ -157,11 +157,11 @@ const CurrencyCardContent: React.FC = () => {
 			))}
 
 			{getAmount && (
-				<div className="w-100 h-100 p-2 flex flex-col gap-2 justify-start items-start">
+				<div className="w-100 h-100 p-2 flex flex-col gap-4 justify-start items-start">
 					<p className="text-sm text-[#CCCCCC] font-normal leading-4 px-2">
 						Amount
 					</p>
-					<div className="relative w-full max-w-xs mx-auto">
+					<div className="relative w-full">
 						<button
 							className="absolute left-0 top-0 h-full px-4 text-white rounded-l-full"
 							type="button"
@@ -176,7 +176,6 @@ const CurrencyCardContent: React.FC = () => {
 							value={amount} // Set the value of the input to the state value
 							onChange={(e) => setAmount(parseInt(e.target.value))} // Update the state when the input changes
 							style={{
-								// Hide the increase button
 								WebkitAppearance: "none",
 								MozAppearance: "textfield",
 								margin: 0,

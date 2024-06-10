@@ -4,11 +4,10 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import Card from "./Card";
 import { useNetwork } from "../context/NetworkContext";
-import { useWallet } from "../context/WalletContext";
 import NetworkDropdown from "./NetworkDropDown";
 import WalletDropdown from "./WalletDropDown";
+import CustomGradientCard from "./CustomGradientCard";
 
 const options1 = [
 	{
@@ -59,8 +58,7 @@ const Navbar = () => {
 	const [dropdowntext, setDropdownText] = useState("Select net");
 	const router = useRouter();
 
-	const { network, setNetwork } = useNetwork();
-	const { wallet, setWallet } = useWallet();
+	const { network } = useNetwork();
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
@@ -127,7 +125,7 @@ const Navbar = () => {
 					<div className="w-[474px] h-[48px] rounded-full bg-[#212121] flex flex-row justify-end items-center gap-2 p-2 pl-5">
 						<div>
 							<button
-								className="text-white leading-[20.64px] font-medium text-[15px] z-10"
+								className="text-white leading-[20.64px] font-medium text-[15px] z-10 hover:bg-[#34404F] p-3 rounded-full focus:outline-none"
 								onClick={() => router.push("/about")}>
 								How it works
 							</button>
@@ -222,6 +220,44 @@ const Navbar = () => {
 			</div>
 			{isOpen && (
 				<div className="md:hidden absolute top-0 left-0 w-full h-full bg-[#212121] p-4 rounded-b-lg shadow-lg z-40 flex flex-col justify-start items-center">
+					<div className="mt-2">
+						{network == "" && (
+							<Image
+								className="w-100"
+								src="/logo.png"
+								alt="Hamburger toggled cheba logo"
+								width={54.22}
+								height={44.62}
+							/>
+						)}
+						{network == "Solana" && (
+							<Image
+								className="w-100"
+								src="/solana/logo.png"
+								alt="Hamburger toggled cheba logo"
+								width={54.22}
+								height={44.62}
+							/>
+						)}
+						{network == "Binance" && (
+							<Image
+								className="w-100"
+								src="/binance/logo.png"
+								alt="Hamburger toggled cheba logo"
+								width={54.22}
+								height={44.62}
+							/>
+						)}
+						{network == "Ethereum" && (
+							<Image
+								className="w-100"
+								src="/ethereum/logo.png"
+								alt="Hamburger toggled cheba logo"
+								width={54.22}
+								height={44.62}
+							/>
+						)}
+					</div>
 					<button
 						className="block text-white leading-[20.64px] font-medium text-[15px] mb-4 mt-16 bg-[#050505] py-3 px-4 rounded-full focus:outline-none"
 						onClick={() => {
@@ -235,13 +271,12 @@ const Navbar = () => {
 							className="w-full grid grid-cols-1 gap-x-10 gap-y-5"
 							onClick={toggleMenu}>
 							{data.map((item, index) => (
-								<div key={item.title} className="border border-black rounded-full">
-							<Card
+								<CustomGradientCard
+									key={index}
 									image={item.image}
 									title={item.title}
 									subtitle={item.subtitle}
 								/>
-								</div>
 							))}
 						</div>
 					</div>

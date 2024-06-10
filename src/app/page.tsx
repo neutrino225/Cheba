@@ -3,11 +3,11 @@
 
 import Image from "next/image";
 import Navbar from "./components/Navbar";
-import Card from "./components/Card";
 import Socials from "./components/socials";
 import { useNetwork } from "./context/NetworkContext";
 import CurrencyCard from "./components/CurrencyCard";
 import { useRef } from "react";
+import CustomGradientCard from "./components/CustomGradientCard";
 
 const data = [
 	{
@@ -258,13 +258,13 @@ const Home = () => {
 						</div>
 
 						{network == "" && (
-							<div className="w-full md:w-96 hidden md:flex flex-col self-start justify-start items-start gap-3 mt-10 md:mt-20">
+							<div className="w-full md:w-96 hidden md:flex flex-col self-start justify-start items-start gap-3 mt-10 md:mt-20 mr-9">
 								<h1 className="text-[32px] font-medium text-white leading-[43.71px]">
 									Choose your Chebu
 								</h1>
-								<div className="w-full grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">
+								<div className="w-full grid grid-cols-1 gap-x-10 gap-y-3 md:grid-cols-2">
 									{data.map((item, index) => (
-										<Card
+										<CustomGradientCard
 											key={index}
 											image={item.image}
 											title={item.title}
