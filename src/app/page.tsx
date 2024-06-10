@@ -39,10 +39,10 @@ const Home = () => {
 
 	return (
 		<>
-			<header>
+			<header className="px-0 md:px-28">
 				<Navbar />
 			</header>
-			<main className="w-screen h-full overflow-x-hidden flex flex-col md:overflow-hidden">
+			<main className="w-screen h-full overflow-x-hidden flex flex-col md:overflow-hidden ">
 				<div className="absolute w-3/4 md:w-1/4 h-1/6 top-6 left-[-15px] z-10">
 					<Image
 						src="/particles.svg"
@@ -167,79 +167,81 @@ const Home = () => {
 				)}
 
 				<section className="w-full flex flex-col justify-center gap-10 md:gap-28 p-4 md:p-0 md:px-20 mt-10 md:mt-0">
-					<div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-20 w-full">
-						<div className="hidden md:flex">
+					<div className="flex flex-col md:flex-row justify-around items-center gap-4 md:gap-20 w-full relative">
+						<div className="hidden md:flex absolute left-0">
 							<Socials />
 						</div>
-						<div className="w-full md:w-auto flex flex-col justify-start items-start">
-							{network === "" && (
-								<>
-									<Image
-										src="/helloimchebu.png"
-										width={328}
-										height={158}
-										alt="Hello I am chebu"
-										sizes="(max-width: 768px) 200px, 328px"
-									/>
-									<Image
-										src="/chebu-main.png"
-										width={600}
-										height={500}
-										alt="Chebu"
-									/>
-								</>
-							)}
-							{network === "Solana" && (
-								<>
-									<Image
-										src="/solana/helloimchebu.png"
-										width={328}
-										height={158}
-										alt="Hello I am chebu"
-										sizes="(max-width: 768px) 200px, 328px"
-									/>
-									<Image
-										src="/solana/chebu-main.png"
-										width={600}
-										height={500}
-										alt="Chebu"
-									/>
-								</>
-							)}
-							{network === "Binance" && (
-								<>
-									<Image
-										src="/binance/helloimchebu.png"
-										width={328}
-										height={158}
-										alt="Hello I am chebu"
-										sizes="(max-width: 768px) 200px, 328px"
-									/>
-									<Image
-										src="/binance/chebu-main.png"
-										width={600}
-										height={500}
-										alt="Chebu"
-									/>
-								</>
-							)}
-							{network === "Ethereum" && (
-								<>
-									<Image
-										src="/ethereum/helloimchebu.png"
-										width={328}
-										height={158}
-										alt="Hello I am chebu"
-										sizes="(max-width: 768px) 200px, 328px"
-									/>
-									<Image
-										src="/ethereum/chebu-main.png"
-										width={600}
-										height={500}
-										alt="Chebu"
-									/>
-								</>
-							)}
+						<div className="w-full md:w-auto flex-1 flex flex-col justify-center items-center">
+							<div>
+								{network === "" && (
+									<>
+										<Image
+											src="/helloimchebu.png"
+											width={328}
+											height={158}
+											alt="Hello I am chebu"
+											sizes="(max-width: 768px) 200px, 328px"
+										/>
+										<Image
+											src="/chebu-main.png"
+											width={600}
+											height={500}
+											alt="Chebu"
+										/>
+									</>
+								)}
+								{network === "Solana" && (
+									<>
+										<Image
+											src="/solana/helloimchebu.png"
+											width={328}
+											height={158}
+											alt="Hello I am chebu"
+											sizes="(max-width: 768px) 200px, 328px"
+										/>
+										<Image
+											src="/solana/chebu-main.png"
+											width={600}
+											height={500}
+											alt="Chebu"
+										/>
+									</>
+								)}
+								{network === "Binance" && (
+									<>
+										<Image
+											src="/binance/helloimchebu.png"
+											width={328}
+											height={158}
+											alt="Hello I am chebu"
+											sizes="(max-width: 768px) 200px, 328px"
+										/>
+										<Image
+											src="/binance/chebu-main.png"
+											width={600}
+											height={500}
+											alt="Chebu"
+										/>
+									</>
+								)}
+								{network === "Ethereum" && (
+									<>
+										<Image
+											src="/ethereum/helloimchebu.png"
+											width={328}
+											height={158}
+											alt="Hello I am chebu"
+											sizes="(max-width: 768px) 200px, 328px"
+										/>
+										<Image
+											src="/ethereum/chebu-main.png"
+											width={600}
+											height={500}
+											alt="Chebu"
+										/>
+									</>
+								)}
+							</div>
 							{network != "" && (
 								<div className="md:hidden w-100 flex flex-row gap-4 justify-center items-center w-full z-20 cursor-pointer">
 									<button
