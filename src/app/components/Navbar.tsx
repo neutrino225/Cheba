@@ -72,7 +72,7 @@ const Navbar = () => {
 		<nav className="flex flex-col justify-center items-center">
 			<div className="w-full flex flex-row-reverse md:flex-row justify-between items-center px-4 py-4 md:px-20 md:py-4">
 				<div>
-					<div className="relative bg-[#3C3C3C] w-[108px] h-[48px] rounded-full md:hidden z-30">
+					<div className="relative bg-[#3C3C3C] rounded-full md:hidden z-30">
 						<WalletDropdown
 							options={options2}
 							text="Wallet"
@@ -125,7 +125,7 @@ const Navbar = () => {
 					<div className="w-[474px] h-[48px] rounded-full bg-[#212121] flex flex-row justify-end items-center gap-2 p-2 pl-5">
 						<div>
 							<button
-								className="text-white leading-[20.64px] font-medium text-[15px] z-10 hover:bg-[#34404F] p-3 rounded-full focus:outline-none"
+								className="text-white leading-5 font-medium text-[15px] z-10 hover:bg-[#34404F] p-3 rounded-full focus:outline-none"
 								onClick={() => router.push("/about")}>
 								How it works
 							</button>

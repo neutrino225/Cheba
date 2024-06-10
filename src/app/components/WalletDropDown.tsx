@@ -37,17 +37,16 @@ const WalletDropdown: React.FC<WalletDropDownProps> = ({
 	return (
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
-				<div className="relative flex flex-row justify-start items-center w-[200px] pr-4">
+				<div className="relative flex flex-row justify-start items-center w-[100px] md:w-[200px] p-0 md:pr-4">
 					<Image
 						className="ml-2"
 						src={connected ? "/metamask.png" : img}
 						alt="Dropdown img"
 						width={32}
 						height={32}
-						sizes="(max-width: 768px) 20px, 32px"
 					/>
 					<button className="bg-transparent w-[70px] md:w-[200px] h-[48px] rounded-full flex flex-row justify-center items-center text-white font-[600] text-[14px] gap-1">
-						{connected ? "Connected" : text}
+						<span className="truncate">{connected ? "Connected" : text}</span>
 					</button>
 				</div>
 			</DropdownMenu.Trigger>
