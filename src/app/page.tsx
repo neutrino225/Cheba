@@ -166,7 +166,7 @@ const Home = () => {
 					/>
 				)}
 
-				<section className="w-full flex flex-col justify-center gap-28 p-4 md:p-0 md:px-20 mt-10 md:mt-0">
+				<section className="w-full flex flex-col justify-center gap-10 md:gap-28 p-4 md:p-0 md:px-20 mt-10 md:mt-0">
 					<div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-20 w-full">
 						<div className="hidden md:flex">
 							<Socials />
